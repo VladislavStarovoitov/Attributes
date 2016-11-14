@@ -10,7 +10,7 @@ namespace Attributes
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public InstantiateUserAttribute(string firstName, string lastName) : this(0, firstName, lastName)
+        public InstantiateUserAttribute(string firstName, string lastName) : this(-1, firstName, lastName)
         { }
 
         public InstantiateUserAttribute(int id, string firstName, string lastName)

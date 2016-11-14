@@ -3,3 +3,8 @@ C:\Users\Uladzislau_Staravoit\Downloads\day 3\dotnetbasics-master\Day3\Attribute
 C:\Users\Uladzislau_Staravoit\Downloads\day 3\dotnetbasics-master\Day3\Attributes\bin\Debug\Attributes.pdb
 C:\Users\Uladzislau_Staravoit\Downloads\day 3\dotnetbasics-master\Day3\Attributes\obj\Debug\Attributes.dll
 C:\Users\Uladzislau_Staravoit\Downloads\day 3\dotnetbasics-master\Day3\Attributes\obj\Debug\Attributes.pdb
+E:\лаба\Core DotNet\Attributes\Attributes\bin\Debug\Attributes.dll
+E:\лаба\Core DotNet\Attributes\Attributes\bin\Debug\Attributes.pdb
+E:\лаба\Core DotNet\Attributes\Attributes\obj\Debug\Attributes.csprojResolveAssemblyReference.cache
+E:\лаба\Core DotNet\Attributes\Attributes\obj\Debug\Attributes.dll
+E:\лаба\Core DotNet\Attributes\Attributes\obj\Debug\Attributes.pdb
