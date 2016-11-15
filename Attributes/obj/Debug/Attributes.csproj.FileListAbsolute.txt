@@ -8,3 +8,8 @@ E:\лаба\Core DotNet\Attributes\Attributes\bin\Debug\Attributes.pdb
 E:\лаба\Core DotNet\Attributes\Attributes\obj\Debug\Attributes.csprojResolveAssemblyReference.cache
 E:\лаба\Core DotNet\Attributes\Attributes\obj\Debug\Attributes.dll
 E:\лаба\Core DotNet\Attributes\Attributes\obj\Debug\Attributes.pdb
+C:\Users\Uladzislau_Staravoit\Documents\Visual Studio 2015\Projects\Attributes\Attributes\obj\Debug\Attributes.csprojResolveAssemblyReference.cache
+C:\Users\Uladzislau_Staravoit\Documents\Visual Studio 2015\Projects\Attributes\Attributes\obj\Debug\Attributes.dll
+C:\Users\Uladzislau_Staravoit\Documents\Visual Studio 2015\Projects\Attributes\Attributes\obj\Debug\Attributes.pdb
+C:\Users\Uladzislau_Staravoit\Documents\Visual Studio 2015\Projects\Attributes\Attributes\bin\Debug\Attributes.dll
+C:\Users\Uladzislau_Staravoit\Documents\Visual Studio 2015\Projects\Attributes\Attributes\bin\Debug\Attributes.pdb

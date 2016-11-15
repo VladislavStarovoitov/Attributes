@@ -6,12 +6,16 @@ namespace Attributes
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
     public class InstantiateUserAttribute : Attribute
     {
-        public int Id { get; set; }
+        public Nullable<int> Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public InstantiateUserAttribute(string firstName, string lastName) : this(-1, firstName, lastName)
-        { }
+        public InstantiateUserAttribute(string firstName, string lastName)
+        {
+            Id = null;
+            FirstName = firstName;
+            LastName = lastName;
+        }
 
         public InstantiateUserAttribute(int id, string firstName, string lastName)
         {
