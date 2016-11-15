@@ -42,7 +42,7 @@ namespace AttributeValidation
 
         static void ValidateUser(User user)
         {
-            
+            ValidateStringFields(user);
         }
 
         static dynamic MatchPataremeter(Type type)
@@ -52,6 +52,16 @@ namespace AttributeValidation
             PropertyInfo property = type.GetProperty(matchAttributes[0].Property);
             DefaultValueAttribute defaultAttribute = property.GetCustomAttribute<DefaultValueAttribute>();
             return defaultAttribute.Value;
+        }
+
+        static void ValidateStringFields(User user)
+        {
+            
+        }
+
+        static void ValidateIntFields(User user)
+        {
+
         }
     }
 }
