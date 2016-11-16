@@ -11,17 +11,35 @@ namespace AttributeValidation
 {
     public static class UserCreator
     {
-        public static List<User> CreateUsers()//принимать тип атрибута
+        public static List<User> CreateUsers()
         {
-            return CreateUsers<InstantiateUserAttribute, User>();
+            List<User> users = new List<User>();
+            InstantiateUserAttribute[] attributes =
+                (InstantiateUserAttribute[])Attribute.GetCustomAttributes(typeof(User), typeof(InstantiateUserAttribute));
+
+            return CreateUsers<InstantiateUserAttribute, User>(attributes);
         }
 
         public static List<AdvancedUser> CreateAdvancedUsers()
-        {            
-            return CreateUsers<InstantiateAdvancedUserAttribute, AdvancedUser>();
+        {
+            List<AdvancedUser> users = new List<AdvancedUser>();
+            var attributes = typeof(AdvancedUser).Assembly.GetCustomAttributes<InstantiateAdvancedUserAttribute>();
+
+            return CreateUsers<InstantiateAdvancedUserAttribute, AdvancedUser>(attributes);
         }
 
-        public static User CreateUser(InstantiateUserAttribute userAttribute, ParameterInfo[] parameters)
+        private static List<K> CreateUsers<T, K>(IEnumerable<T> attributes) where T: InstantiateUserAttribute
+                                                   where K: User
+        {
+            foreach (var item in attributes)
+            {
+                users.Add((K)CreateUser(item, null));
+            }
+
+            return null;
+        }
+
+        private static User CreateUser(InstantiateUserAttribute userAttribute, ParameterInfo[] parameters)
         {
             User user = new User(userAttribute.Id ?? MatchPataremeter(typeof(User)))//предусмотреть наследников
             {
@@ -29,21 +47,6 @@ namespace AttributeValidation
                 LastName = userAttribute.LastName
             };
             return user;
-        }
-
-        private static List<K> CreateUsers<T, K>() where T: InstantiateUserAttribute
-                                                   where K: User
-        {
-            List<K> users = new List<K>();
-            T[] attributes =
-                (T[])Attribute.GetCustomAttributes(typeof(K), typeof(T));
-
-            foreach (var item in attributes)
-            {
-                users.Add((K)CreateUser(item, null));
-            }
-
-            return null;
         }
 
         private static dynamic MatchPataremeter(Type type)
