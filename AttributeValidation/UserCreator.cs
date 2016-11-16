@@ -21,31 +21,31 @@ namespace AttributeValidation
 
         public static List<AdvancedUser> CreateAdvancedUsers()
         {
-            List<AdvancedUser> users = new List<AdvancedUser>();
             var attributes = typeof(AdvancedUser).Assembly.GetCustomAttributes<InstantiateAdvancedUserAttribute>();
 
             return CreateUsers<InstantiateAdvancedUserAttribute, AdvancedUser>(attributes);
         }
 
-        private static List<K> CreateUsers<T, K>(IEnumerable<T> attributes) where T: InstantiateUserAttribute
-                                                                            where K: User
+        private static List<U> CreateUsers<T, U>(IEnumerable<T> attributes) where T: InstantiateUserAttribute
+                                                                            where U: User
         {
-            List<K> users = new List<K>();
+            List<U> users = new List<U>();
             foreach (var item in attributes)
             {
-                users.Add((K)CreateUser(item, null));
+                users.Add((U)CreateUser(item, typeof(U), null));
             }
 
-            return null;
+            return users;
         }
 
-        private static User CreateUser(InstantiateUserAttribute userAttribute, ParameterInfo[] parameters)
+        private static User CreateUser(InstantiateUserAttribute userAttribute, Type userType, ParameterInfo[] parameters)
         {
-            User user = new User(userAttribute.Id ?? MatchPataremeter(typeof(User)))//предусмотреть наследников
-            {
-                FirstName = userAttribute.FirstName,
-                LastName = userAttribute.LastName
-            };
+            User user = (User)Activator.CreateInstance(userType);
+            //User user = new User(userAttribute.Id ?? MatchPataremeter(typeof(User)))//предусмотреть наследников
+            //{
+            //    FirstName = userAttribute.FirstName,
+            //    LastName = userAttribute.LastName
+            //};
             return user;
         }
 
