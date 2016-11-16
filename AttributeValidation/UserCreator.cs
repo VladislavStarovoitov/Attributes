@@ -13,7 +13,6 @@ namespace AttributeValidation
     {
         public static List<User> CreateUsers()
         {
-            List<User> users = new List<User>();
             InstantiateUserAttribute[] attributes =
                 (InstantiateUserAttribute[])Attribute.GetCustomAttributes(typeof(User), typeof(InstantiateUserAttribute));
 
@@ -29,8 +28,9 @@ namespace AttributeValidation
         }
 
         private static List<K> CreateUsers<T, K>(IEnumerable<T> attributes) where T: InstantiateUserAttribute
-                                                   where K: User
+                                                                            where K: User
         {
+            List<K> users = new List<K>();
             foreach (var item in attributes)
             {
                 users.Add((K)CreateUser(item, null));
