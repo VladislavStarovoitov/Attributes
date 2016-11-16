@@ -13,15 +13,12 @@ namespace AttributeValidation
     {
         public static List<User> CreateUsers()//принимать тип атрибута
         {
-            List<User> users = new List<User>();
-            InstantiateUserAttribute[] attributes =
-                (InstantiateUserAttribute[])Attribute.GetCustomAttributes(typeof(User), typeof(InstantiateUserAttribute));
-            foreach (var item in attributes)
-            {
-                users.Add(CreateUser(item, null));
-            }
+            return CreateUsers<InstantiateUserAttribute, User>();
+        }
 
-            return users;
+        public static List<AdvancedUser> CreateAdvancedUsers()
+        {            
+            return CreateUsers<InstantiateAdvancedUserAttribute, AdvancedUser>();
         }
 
         public static User CreateUser(InstantiateUserAttribute userAttribute, ParameterInfo[] parameters)
@@ -34,8 +31,18 @@ namespace AttributeValidation
             return user;
         }
 
-        public static List<AdvancedUser> CreateAdvancedUsers()
+        private static List<K> CreateUsers<T, K>() where T: InstantiateUserAttribute
+                                                   where K: User
         {
+            List<K> users = new List<K>();
+            T[] attributes =
+                (T[])Attribute.GetCustomAttributes(typeof(K), typeof(T));
+
+            foreach (var item in attributes)
+            {
+                users.Add((K)CreateUser(item, null));
+            }
+
             return null;
         }
 
