@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AttributeValidation
 {
-    public static class Validator
+    public static class UserCreator
     {
     }
 }
