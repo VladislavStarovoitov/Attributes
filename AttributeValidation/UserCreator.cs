@@ -32,24 +32,30 @@ namespace AttributeValidation
             List<U> users = new List<U>();
             foreach (var item in attributes)
             {
-                users.Add((U)CreateUser(item, typeof(U), null));
+                users.Add((U)CreateUser(item, typeof(U)));
             }
 
             return users;
         }
 
-        private static User CreateUser(InstantiateUserAttribute userAttribute, Type userType, ParameterInfo[] parameters)
+        private static User CreateUser(InstantiateUserAttribute userAttribute, Type userType)
         {
-            User user = (User)Activator.CreateInstance(userType);
-            //User user = new User(userAttribute.Id ?? MatchPataremeter(typeof(User)))//предусмотреть наследников
-            //{
-            //    FirstName = userAttribute.FirstName,
-            //    LastName = userAttribute.LastName
-            //};
+            User user;
+            if (userType == typeof(User))
+            {
+                user = new User(userAttribute.Id ?? MatchPataremeter("id", typeof(InstantiateUserAttribute)));
+            }
+            else
+            {
+                var advancedUserAttribute = userAttribute as InstantiateAdvancedUserAttribute;
+                user =
+                    new AdvancedUser(advancedUserAttribute.Id ?? MatchPataremeter("id", typeof(InstantiateAdvancedUserAttribute)),
+                                     advancedUserAttribute.ExternalId ?? MatchPataremeter("externalId", typeof(InstantiateAdvancedUserAttribute)));
+            }
             return user;
         }
 
-        private static dynamic MatchPataremeter(Type type)
+        private static dynamic MatchPataremeter(string paramName, Type type)
         {
             var matchAttributes =
                 (MatchParameterWithPropertyAttribute[])Attribute.GetCustomAttributes(type.GetConstructors()[0], typeof(MatchParameterWithPropertyAttribute));
