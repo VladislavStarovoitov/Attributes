@@ -12,7 +12,8 @@ namespace AttributeValidation
     {
         public static void ValidateUser(User user)
         {
-            List<MemberInfo> members = new List<MemberInfo>(user.GetType().GetFields());
+            List<MemberInfo> members = new List<MemberInfo>(user.GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public));
+            members.AddRange(user.GetType().BaseType.GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public));
             members.AddRange(user.GetType().GetProperties());
 
             foreach (var item in members)

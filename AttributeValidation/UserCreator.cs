@@ -43,15 +43,16 @@ namespace AttributeValidation
             User user;
             if (userType == typeof(User))
             {
-                user = new User(userAttribute.Id ?? MatchPataremeter("id", typeof(InstantiateUserAttribute)));
+                user = new User(userAttribute.Id ?? MatchPataremeter("id", userType));
             }
             else
             {
                 var advancedUserAttribute = userAttribute as InstantiateAdvancedUserAttribute;
                 user =
-                    new AdvancedUser(advancedUserAttribute.Id ?? MatchPataremeter("id", typeof(InstantiateAdvancedUserAttribute)),
-                                     advancedUserAttribute.ExternalId ?? MatchPataremeter("externalId", typeof(InstantiateAdvancedUserAttribute)));
+                    new AdvancedUser(advancedUserAttribute.Id ?? MatchPataremeter("id", userType),
+                                     advancedUserAttribute.ExternalId ?? MatchPataremeter("externalId", userType));
             }
+            InitializeUser(user, userAttribute);
             return user;
         }
 
@@ -73,6 +74,12 @@ namespace AttributeValidation
                 throw new MatchException();
             }       
             return defaultAttribute.Value;
+        } 
+
+        private static void InitializeUser(User user, InstantiateUserAttribute attribute)
+        {
+            user.FirstName = attribute.FirstName;
+            user.LastName = attribute.LastName;
         }
     }
 }

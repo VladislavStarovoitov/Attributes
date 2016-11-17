@@ -10,11 +10,16 @@ using static AttributeValidation.UserCreator;
 
 namespace AttributeValidation
 {
-    class Program
+    class  Program
     {
         static void Main(string[] args)
         {
             var users = CreateUsers();
+            var advancedUsers = CreateAdvancedUsers();
+            foreach (var item in advancedUsers)
+            {
+                Validator.ValidateUser(item);
+            }
         }
     }
 }
