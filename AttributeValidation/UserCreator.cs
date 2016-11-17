@@ -57,10 +57,21 @@ namespace AttributeValidation
 
         private static dynamic MatchPataremeter(string paramName, Type type)
         {
+            DefaultValueAttribute defaultAttribute = default(DefaultValueAttribute);
             var matchAttributes =
                 (MatchParameterWithPropertyAttribute[])Attribute.GetCustomAttributes(type.GetConstructors()[0], typeof(MatchParameterWithPropertyAttribute));
-            PropertyInfo property = type.GetProperty(matchAttributes[0].Property);
-            DefaultValueAttribute defaultAttribute = property.GetCustomAttribute<DefaultValueAttribute>();
+            foreach (var item in matchAttributes)
+            {
+                if (paramName.Equals(item.Parameter, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    PropertyInfo property = type.GetProperty(item.Property);
+                    defaultAttribute = property.GetCustomAttribute<DefaultValueAttribute>();
+                }
+            }     
+            if (ReferenceEquals(defaultAttribute, null))
+            {
+                throw new MatchException();
+            }       
             return defaultAttribute.Value;
         }
     }
