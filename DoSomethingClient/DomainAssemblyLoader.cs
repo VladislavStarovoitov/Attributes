@@ -46,8 +46,15 @@ namespace DoSomethingClient
 
             Type type = null; // TODO: Find first type that has DoSomething attribute and don't implement IDoSomething.
             // TODO: MethodInfo mi = type.GetMethod("DoSomething");
+            type = types.FirstOrDefault(t => t.GetCustomAttribute<DoSomethingAttribute>() != null && !typeof(IDoSomething).IsAssignableFrom(t));
+            MethodInfo mi = type.GetMethod("DoSomething");
+
+            var instance = Activator.CreateInstance(type);
             Result result = null;
             // TODO: result = mi.Invoke();
+            object[] parameters = new object[1];
+            parameters[0] = data;
+            result = (Result)mi.Invoke(instance, parameters);
 
             return result;
         }
@@ -56,12 +63,15 @@ namespace DoSomethingClient
         public Result LoadFrom(string fileName, Input data)
         {
             var assembly = Assembly.LoadFrom(fileName);
-            var type = assembly.GetTypes();
+            var types = assembly.GetTypes();
 
+            Type type = types.FirstOrDefault(t => t.GetCustomAttribute<DoSomethingAttribute>() != null && !typeof(IDoSomething).IsAssignableFrom(t));
             // TODO: Find first type that has DoSomething attribute and implements IDoSomething.
             // TODO: Create an instance of this type.
 
             IDoSomething doSomethingService = null; // TODO Save instance to variable.
+
+
             return doSomethingService.DoSomething(data);
         }
     }

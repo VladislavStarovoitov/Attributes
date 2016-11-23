@@ -35,7 +35,7 @@ namespace DoSomethingClient
             };
 
             Method1(input);
-            //Method2(input);
+            Method2(input);
         }
 
         private static void Method1(Input input)
@@ -91,6 +91,7 @@ namespace DoSomethingClient
             }
 
             // TODO: Unload domain
+            AppDomain.Unload(domain);
         }
     }
 }
