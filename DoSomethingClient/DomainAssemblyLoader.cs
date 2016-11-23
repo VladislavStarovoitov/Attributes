@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using MyInterfaces;
+using System.Linq;
 
 namespace DoSomethingClient
 {
@@ -22,6 +23,13 @@ namespace DoSomethingClient
             // TODO: Create an instance of this type.
 
             IDoSomething doSomethingService = null; // TODO Save instance to variable.
+            
+            Type type = types.FirstOrDefault(t => t.GetCustomAttribute<DoSomethingAttribute>() != null && typeof(IDoSomething).IsAssignableFrom(t));
+            if (!ReferenceEquals(type, null))
+            {
+                doSomethingService = (IDoSomething)Activator.CreateInstance(type);
+            }            
+
             return doSomethingService.DoSomething(data);
         }
 

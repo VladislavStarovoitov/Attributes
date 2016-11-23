@@ -73,15 +73,16 @@ namespace DoSomethingClient
                 PrivateBinPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MyDomain")
             };
 
+            AppDomain domain = AppDomain.CreateDomain("MyDomain", null, appDomainSetup);
+
             // TODO: Create a domain with name MyDomain and setup from appDomainSetup.
-            AppDomain domain = null;
 
             var loader = (DomainAssemblyLoader)domain.CreateInstanceAndUnwrap(Assembly.GetExecutingAssembly().FullName, typeof(DomainAssemblyLoader).FullName);
 
             try
             {
                 Result result = null; // TODO: Use loader here.
-
+                result = loader.LoadFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"MyDomain\MyLibrary.dll"), input);
                 Console.WriteLine("Method2: {0}", result.Value);
             }
             catch (Exception e)
